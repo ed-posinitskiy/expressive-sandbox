@@ -1,0 +1,13 @@
+{
+    "require": {
+        "zendframework/zend-expressive": "^0.1.0",
+        "aura/router": "^2.3",
+        "zendframework/zend-servicemanager": "^2.6",
+        "zendframework/zend-config": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/App"
+        }
+    }
+}
