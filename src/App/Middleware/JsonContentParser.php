@@ -8,6 +8,7 @@ namespace App\Middleware;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Zend\Json\Json;
 use Zend\Stratigility\MiddlewareInterface;
 
 /**
@@ -25,7 +26,13 @@ class JsonContentParser implements MiddlewareInterface
         $acceptHeader = $request->hasHeader('Accept') ? $request->getHeaderLine('Accept') : null;
 
         if ($acceptHeader && false !== strpos($acceptHeader, static::JSON_HEADER)) {
-            $request = $request->withParsedBody(json_decode($request->getBody()->getContents(), true));
+            $content = $request->getBody()->getContents();
+            try {
+                $decoded = Json::decode($content, Json::TYPE_ARRAY);
+                $request = $request->withParsedBody($decoded);
+            } catch (\Exception $e) {
+                // @TODO: log if needed
+            }
         }
 
         return $out($request, $response);
