@@ -26,10 +26,18 @@ return [
             ],
             [
                 'middleware' => 'mw.json-content-parser'
+            ],
+            [
+                'middleware' => 'mw.auth'
             ]
         ]
     ],
     'accept-negotiation'  => [
         'application/json'
+    ],
+    'auth' => [
+        'token_identities' => [
+            'test' => 'Test Identity'
+        ]
     ],
 ];

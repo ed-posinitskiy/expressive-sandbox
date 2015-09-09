@@ -16,9 +16,18 @@ return [
     ],
     'aliases'    => [
         'mw.accept-negotiation' => 'App\\Middleware\\AcceptNegotiation',
+        'mw.auth'               => 'App\\Middleware\\TokenAuth',
     ],
     'factories'  => [
+        // Application
         'Zend\\Expressive\\Application'      => 'Zend\\Expressive\\Container\\ApplicationFactory',
+
+        // Middleware
         'App\\Middleware\\AcceptNegotiation' => 'App\\Middleware\\Factory\\AcceptNegotiationFactory',
+        'App\\Middleware\\TokenAuth'         => 'App\\Middleware\\Factory\\TokenAuthFactory',
+
+        // Services
+        'App\\Auth\\TokenStorageInterface'   => 'App\\Auth\\Factory\\Hmac\\ConfigStorageFactory',
+        'App\\Auth\\AuthService'             => 'App\\Auth\\Factory\\AuthServiceFactory',
     ]
 ];
